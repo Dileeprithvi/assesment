@@ -1,0 +1,178 @@
+---
+- name: Ansible Playbook for Installing the mediawiki
+  hosts: all
+  become: yes
+  vars:
+    - package: ["mariadb", "httpd"]
+  tasks:
+    - name: Install the below Softwares
+      dnf:
+        name:
+          - httpd 
+          - php-mysqlnd 
+          - php-gd
+          - php-xml 
+          - mariadb-server
+          - mariadb
+          - php-mbstring 
+          - php-json
+          - python3
+          - python3-pip
+
+    - name: Install the Pre-requisites
+      yum:
+        name:
+          - wget
+          - expect
+        state: present
+
+
+    - name: Start and Enable the {{ package }}
+      systemd:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      with_items: "{{ package }}"		
+
+
+    - name: Copy the file to remote server
+      copy:
+        src: mysql.sh
+        dest: mysql.sh
+        mode: 0755
+
+
+    - name: Execute the shell script
+      become_user: root
+      shell: ./mysql.sh
+
+    - name: Install the PyMySQL module
+      pip: 
+        name: PyMySQL
+
+
+    - name: Creating the wikidatabase
+      mysql_db:
+        name: wikidatabase
+        state: present
+        login_user: root
+
+    - name: Creating the wiki user and permission
+      mysql_user:
+        name: wiki
+        password: THISpasswordSHOULDbeCHANGED
+        priv: 'wikidatabase.*:ALL,GRANT'
+        state: present
+        login_user: root
+
+    - name: Listing the database
+      shell: 'mysql -u root --execute="SHOW DATABASES;"'
+      register: db_database
+
+    - name: db Output Names
+      debug: 
+        var: db_database.stdout
+
+
+    - name: Granted Permissions
+      shell: 'mysql -u root --execute="SHOW GRANTS FOR wiki@localhost;"'
+      register: db_grant
+
+    - name: Granted Output Names
+      debug:
+        var: db_grant.stdout
+
+
+    - name: Download the MediaWiki
+      get_url:
+         url: 'https://releases.wikimedia.org/mediawiki/1.35/mediawiki-1.35.0.tar.gz'
+         dest: /home/ec2-user/mediawiki-1.35.0.tar.gz
+
+    - name: Download the Signature
+      get_url:
+         url: 'https://releases.wikimedia.org/mediawiki/1.35/mediawiki-1.35.0.tar.gz.sig'
+         dest: /home/ec2-user/mediawiki-1.35.0.tar.gz.sig
+
+    - name: Extract the tar
+      unarchive:
+         src: /home/ec2-user/mediawiki-1.35.0.tar.gz
+         dest: /var/www/
+         remote_src: yes
+
+    - name: Creating the softlink
+      file:
+         src: /var/www/mediawiki-1.35.0/
+         dest: /var/www/mediawiki
+         state: link
+      tags: softlink
+
+    - name: Httpd Config Backup
+      copy:
+         src: /etc/httpd/conf/httpd.conf
+         dest: /etc/httpd/conf/httpd.conf.bk
+         backup: yes
+         remote_src: true
+      tags: backup
+
+    - name: Replace the httpd conf file
+      template:
+         src: /home/ansadm/httpd.conf.j2
+         dest: /etc/httpd/conf/httpd.conf
+      tags: replace
+
+
+    - name: Changing the Ownership
+      file:
+         path: /var/www/mediawiki/
+         owner: apache
+         group: apache
+         recurse: yes
+      tags: chown
+
+    - name: Stop the httpd server
+      systemd:
+        name: httpd
+        state: stopped
+
+
+    - name: Copy the php file to remote server
+      copy:
+        src: php.sh
+        dest: php.sh
+        mode: 0755
+      tags: php_copy
+
+
+    - name: Execute the php shell script
+      shell: ./php.sh
+      tags: php
+
+    - name: Restart the httpd server
+      systemd:
+        name: httpd
+        state: restarted
+
+    - name: php version
+      shell: 'php -v'
+      register: php_v
+
+    - name: Output php version
+      debug:
+        var: php_v.stdout
+
+    - name: Execute the php shell script again
+      shell: ./php.sh
+      tags: php2
+
+    - name: Restart the httpd server again
+      systemd:
+        name: httpd
+        state: restarted
+
+    - name: php version again
+      shell: 'php -v'
+      register: php_v2
+
+    - name: Output php version again
+      debug:
+        var: php_v2.stdout
