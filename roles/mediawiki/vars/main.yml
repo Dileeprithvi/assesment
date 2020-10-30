@@ -27,4 +27,6 @@ mediawiki:
 database:
   dbname: wikidatabase
   user_name: wiki
-  user_pass: THISpasswordSHOULDbeCHANGED
+ 
+
+

@@ -49,10 +49,10 @@
     state: present
     login_user: root
 
-- name: Creating the wiki user and permission
+- name: Creating the {{database.user_name}} user and permission
   mysql_user:
     name: "{{database.user_name}}"
-    password: "{{database.user_pass}}"
+    password: "{{ user_pass }}"
     priv: 'wikidatabase.*:ALL,GRANT'
     state: present
     login_user: root
@@ -66,7 +66,7 @@
     var: db_database.stdout
 
 - name: Granted Permissions
-  shell: 'mysql -u root --execute="SHOW GRANTS FOR wiki@localhost;"'
+  shell: 'mysql -u root --execute="SHOW GRANTS FOR "{{database.user_name}}"@localhost;"'
   register: db_grant
 
 - name: Granted Output Names

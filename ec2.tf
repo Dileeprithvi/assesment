@@ -22,7 +22,7 @@ EOD
 }
 
   provisioner "local-exec" {
-command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --private-key ./thought.pem -i 'aws_hosts' role_playbook.yml"  
+command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --private-key ./thought.pem -i 'aws_hosts' role_playbook.yml --vault-password-file pass.yml"
 }
 }
 
