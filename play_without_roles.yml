@@ -116,7 +116,7 @@
 
     - name: Replace the httpd conf file
       template:
-         src: /home/ansadm/httpd.conf.j2
+         src: httpd.conf.j2
          dest: /etc/httpd/conf/httpd.conf
       tags: replace
 
