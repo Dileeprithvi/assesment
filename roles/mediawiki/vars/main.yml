@@ -1,0 +1,30 @@
+---
+# vars file for mediawiki
+
+packages: 
+  - mariadb
+  - httpd
+
+softwares: 
+  - httpd
+  - php-mysqlnd
+  - php-gd
+  - php-xml
+  - mariadb-server
+  - mariadb
+  - php-mbstring
+  - php-json
+  - python3
+  - python3-pip
+ 
+
+
+mediawiki:
+  download: "https://releases.wikimedia.org/mediawiki/1.35/mediawiki-1.35.0.tar.gz"
+  signature: "https://releases.wikimedia.org/mediawiki/1.35/mediawiki-1.35.0.tar.gz.sig"
+
+
+database:
+  dbname: wikidatabase
+  user_name: wiki
+  user_pass: THISpasswordSHOULDbeCHANGED
