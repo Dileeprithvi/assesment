@@ -1,14 +1,14 @@
 # Contents
 
-[ Introduction 1](#_Toc55066386)
+[ Introduction 1]
 
-[2. Local Setup Pre-requisites: 1](#_Toc55066387)
+[2. Local Setup Pre-requisites:
 
-[3. Mediawiki Installation 4](#_Toc55066388)
+[3. Mediawiki Installation 
 
-[4. Accessing the Mediawiki 9](#_Toc55066389)
+[4. Accessing the Mediawiki
 
-[5. Post-Installation 10](#_Toc55066390)
+[5. Post-Installation
 
 
 # Introduction
@@ -40,7 +40,7 @@ Please find the server details where the below mentioned are installed.
 
 ![](RackMultipart20201031-4-14bljzd_html_b143a7616a9985a6.png)
 
-- Please find the **above** 
+
 
 where we have to change the permission of the **thought.pem (664)** file after cloning the repository to **thought.pem (600)**
 
