@@ -1,6 +1,6 @@
 # Contents
 
-1.Introduction 1]
+1.Introduction
 
 2. Local Setup Pre-requisites:
 
