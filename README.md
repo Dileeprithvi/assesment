@@ -1,6 +1,6 @@
 # Contents
 
-[1. Introduction 1](#_Toc55066386)
+[ Introduction 1](#_Toc55066386)
 
 [2. Local Setup Pre-requisites: 1](#_Toc55066387)
 
@@ -10,12 +10,12 @@
 
 [5. Post-Installation 10](#_Toc55066390)
 
-1.
+
 # Introduction
 
 This document is prepared to give the understanding of the local setup and the execution of the Terraform and Ansible Snippets for the installation of the Mediawiki.
 
-1.
+
 # Local Setup Pre-requisites:
 
 Please find the server details where the below mentioned are installed.
@@ -48,16 +48,16 @@ where we have to change the permission of the **thought.pem (664)** file after c
 
 **After completion of all the steps above, we are all set to go to run the snippets where the Terraform will create the AWS EC2 machine and wait for around 120 seconds (mentioned in the snippet), then Ansible server (i.e. local server) will connect to the newly created EC2 machine through SSH and installs the Mediawiki.**
 
-**Note** : I am connecting the Ansible server to the newly created EC2 machine with the private IP, because I have the resources in the same VPC and the subnet. Please find the screenshot highlighted of the **ec2.tf** file
+**Note** : I am connecting the Ansible server to the newly created EC2 machine with the private IP, because I have the resources in the same VPC and the subnet.
 
 ![](RackMultipart20201031-4-14bljzd_html_e8ef475c687d55da.png)
 
-1.
+
 # Mediawiki Installation
 
 - Execute **terraform init** command
 
-![](RackMultipart20201031-4-14bljzd_html_28d9628fb772cab1.png)
+![](RackMultipart20201031-4-14bljzd_html_28d9628fb772cabpng)
 
 - Execute **terraform plan** command
 
@@ -65,7 +65,7 @@ where we have to change the permission of the **thought.pem (664)** file after c
 
 ![](RackMultipart20201031-4-14bljzd_html_93aabec564a20c17.png)
 
-- Execute **terraform apply --auto-approve** command (auto approve doesn&#39;t prompt us for the yes/no) Please find the below screenshots.
+- Execute **terraform apply --auto-approve** command (auto approve doesn&#39;t prompt us for the yes/no)
 
 ![](RackMultipart20201031-4-14bljzd_html_eaccb1925f8a27bf.png)
 
@@ -81,23 +81,23 @@ AWS Resources Snapshot:
 
 ![](RackMultipart20201031-4-14bljzd_html_8f9abf7bde7fdb.png)
 
-1.
+
 # Accessing the Mediawiki
 
 Verifying the Mediawiki Installation with the sample URL below:
 
 E.g. http://\&lt;public-ip\&gt;/mediawiki/
 
-Please find the **public ip** highlighted on the above screenshot
+
 
 [http://3.84.53.133/mediawiki/](http://3.84.53.133/mediawiki/)
 
 ![](RackMultipart20201031-4-14bljzd_html_5bfe47c0a12312a6.png)
 
-1.
+
 # Post-Installation
 
-- Click on the **set up the wiki (**above screenshot**)** in the browser
+
 
 ![](RackMultipart20201031-4-14bljzd_html_adde7998eb944caa.png)
 
@@ -149,7 +149,7 @@ Email address: [prithdileep@gmail.com](mailto:prithdileep@gmail.com)
 
 - Click on the continue
 
-![](RackMultipart20201031-4-14bljzd_html_61681efe07efc9d1.png)
+![](RackMultipart20201031-4-14bljzd_html_61681efe07efc9dpng)
 
 - Mediawiki generated **Localsetting.php** and it contains the configuration. Download the file.
 
@@ -165,7 +165,7 @@ Email address: [prithdileep@gmail.com](mailto:prithdileep@gmail.com)
 
 - Copy the **Localsetting.php** from the /home/ec2-user to /var/www/Mediawiki
 
-![](RackMultipart20201031-4-14bljzd_html_d3e79623d67a1131.png)
+![](RackMultipart20201031-4-14bljzd_html_d3e79623d67a113png)
 
 - Go to [http://3.84.53.133/mediawiki/](http://3.84.53.133/mediawiki/)
 
