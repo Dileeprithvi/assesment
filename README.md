@@ -79,7 +79,7 @@ where we have to change the permission of the **thought.pem (664)** file after c
 
 ![](RackMultipart20201031-4-14bljzd_html_d80adcb2191c5148.png)
 
-AWS Resources Snapshot:
+
 
 ![](RackMultipart20201031-4-14bljzd_html_8f9abf7bde7fdb.png)
 
