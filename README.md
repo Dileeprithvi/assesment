@@ -1,14 +1,14 @@
 # Contents
 
-[ Introduction 1]
+1.Introduction 1]
 
-[2. Local Setup Pre-requisites:
+2. Local Setup Pre-requisites:
 
-[3. Mediawiki Installation 
+3. Mediawiki Installation 
 
-[4. Accessing the Mediawiki
+4. Accessing the Mediawiki
 
-[5. Post-Installation
+5. Post-Installation
 
 
 # Introduction
