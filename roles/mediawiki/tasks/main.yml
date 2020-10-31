@@ -1,17 +1,8 @@
 ---
-- name: Install the below Softwares
+- name: Install the below {{ softwares }}
   dnf:
-    name:
-      - httpd 
-      - php-mysqlnd 
-      - php-gd
-      - php-xml 
-      - mariadb-server
-      - mariadb
-      - php-mbstring 
-      - php-json
-      - python3
-      - python3-pip
+    name: "{{ item }}"
+  with_items: "{{ softwares }}"    
 
 - name: Install the Pre-requisites
   yum:
